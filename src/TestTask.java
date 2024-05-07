@@ -48,4 +48,17 @@ public class TestTask {
             default -> dayOfWeek == SATURDAY || dayOfWeek == SUNDAY;
         };
     }
+
+    static boolean isWorkingDay(boolean isWeekend, int hours, int minutes, LocalDate currDate) {
+        int day = currDate.getDayOfMonth();
+
+        if (hours > 24 || hours < 0 || minutes < 0 || minutes > 59)
+            throw new IllegalArgumentException("Invalid time");
+
+        if (!isWeekend && hours >= 9 && hours <= 18) {
+            if (day != 8) return hours == 18 && minutes > 0;
+            else return hours == 17 && minutes > 0;
+        }
+        return true;
+    }
 }
